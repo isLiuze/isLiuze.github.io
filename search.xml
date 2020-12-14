@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>【日常学习】------ Opencv(Python版)-2 在OpenCV中绘制函数</title>
+    <url>/2018/10/05/opencv-2/</url>
+    <content><![CDATA[<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><blockquote>
+<p>学习使用OpenCV绘制不同的几何形状<br>学习以下函数：cv2.line（），cv2.circle（），cv2.rectangle（），cv2.ellipse（），cv2.putText（）等。<br><img src="https://raw.githubusercontent.com/Ryanlzz/Ryanlzz.github.io/master/image/drawing_opencv.png" alt="drawing_opencv"></p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="创建画板"><a href="#创建画板" class="headerlink" title="创建画板"></a>创建画板</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 创建一个黑色图像</span><br><span class="line">img &#x3D; np.zeros((512,512,3), np.uint8)</span><br></pre></td></tr></table></figure>
+
+<h2 id="画线"><a href="#画线" class="headerlink" title="画线"></a>画线</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 画一条厚度为5像素的蓝色斜线</span><br><span class="line">img &#x3D; cv2.line(img,(0,0),(511,511),(255,0,0),5)</span><br></pre></td></tr></table></figure>
+
+<h2 id="绘制矩形"><a href="#绘制矩形" class="headerlink" title="绘制矩形"></a>绘制矩形</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 绘制矩形，需要矩形的左上角和右下角。这次我们将在图像的右上角绘制一个绿色矩形。</span><br><span class="line">img &#x3D; cv2.rectangle(img,(384,0),(510,128),(0,255,0),3)</span><br></pre></td></tr></table></figure>
+
+<h2 id="绘制圆"><a href="#绘制圆" class="headerlink" title="绘制圆"></a>绘制圆</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 绘制圆，需要其中心坐标和半径。我们将在上面绘制的矩形内绘制一个圆。</span><br><span class="line">img &#x3D; cv2.circle(img,(447,63), 63, (0,0,255), -1)</span><br></pre></td></tr></table></figure>
+
+<h2 id="绘制椭圆"><a href="#绘制椭圆" class="headerlink" title="绘制椭圆"></a>绘制椭圆</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 要绘制椭圆，我们需要传递几个参数。一个参数是中心位置（x，y）。</span><br><span class="line"># 下一个参数是轴长度（长轴长度，短轴长度）。角度是椭圆在逆时针方向上的旋转角度。</span><br><span class="line">img &#x3D; cv2.ellipse(img,(256,256),(100,50),0,0,180,255,-1)</span><br></pre></td></tr></table></figure>
+
+<h2 id="绘制多边形"><a href="#绘制多边形" class="headerlink" title="绘制多边形"></a>绘制多边形</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 要绘制多边形，首先需要顶点坐标。</span><br><span class="line"># 将这些点转换为ROWSx1x2形状的数组，其中ROWS是顶点数，它应该是int32类型。</span><br><span class="line"># 在这里，我们绘制一个带有四个黄色顶点的小多边形。</span><br><span class="line">pts &#x3D; np.array([[10,5],[20,30],[70,20],[50,10]], np.int32)</span><br><span class="line">pts &#x3D; pts.reshape((-1,1,2))</span><br><span class="line"># 如果第三个参数为False，将获得连接所有点的折线，而不是闭合形状。</span><br><span class="line">img &#x3D; cv2.polylines(img,[pts],True,(0,255,255))</span><br></pre></td></tr></table></figure>
+
+<h2 id="向图像添加文字"><a href="#向图像添加文字" class="headerlink" title="向图像添加文字"></a>向图像添加文字</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 向图像添加文字：</span><br><span class="line"># 要将文本放入图像中，您需要指定以下内容。</span><br><span class="line"># 要写入的文本数据</span><br><span class="line"># 想要放置它的位置坐标（即数据开始的左下角）。</span><br><span class="line"># 字体类型（检查支持字体的cv2.putText（）文档）</span><br><span class="line"># 字体缩放（指定字体大小）</span><br><span class="line"># 常见的事情，如颜色，粗细，线型等。为了更好看，建议使用lineType &#x3D; cv2.LINE_AA。</span><br><span class="line"># 我们将以白色在我们的图像上编写OpenCV。</span><br><span class="line">font &#x3D; cv2.FONT_HERSHEY_SIMPLEX</span><br><span class="line">cv2.putText(img,&#39;OpenCV&#39;,(10,500), font, 4,(255,255,255),2,cv2.LINE_AA)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>从上到下向画板添加图形<br><img src="https://raw.githubusercontent.com/Ryanlzz/Ryanlzz.github.io/master/image/drawing.png" alt="drawing"><br>最后的效果<br><img src="https://raw.githubusercontent.com/Ryanlzz/Ryanlzz.github.io/master/image/drawing_opencv.png" alt="drawing_opencv"></p>
+</blockquote>
+<blockquote>
+<p>将每一步的结果显示出来</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import cv2</span><br><span class="line"></span><br><span class="line"># 创建一个黑色图像</span><br><span class="line">img &#x3D; np.zeros((512,512,3), np.uint8)</span><br><span class="line">cv2.imshow(&#39;img1&#39;,img)</span><br><span class="line"></span><br><span class="line"># 画一条厚度为5像素的蓝色斜线</span><br><span class="line">img &#x3D; cv2.line(img,(0,0),(511,511),(255,0,0),5)</span><br><span class="line">cv2.imshow(&#39;img2&#39;,img)</span><br><span class="line"></span><br><span class="line"># 绘制矩形，需要矩形的左上角和右下角。这次我们将在图像的右上角绘制一个绿色矩形。</span><br><span class="line">img &#x3D; cv2.rectangle(img,(384,0),(510,128),(0,255,0),3)</span><br><span class="line">cv2.imshow(&#39;img3&#39;,img)</span><br><span class="line"></span><br><span class="line"># 绘制圆，需要其中心坐标和半径。我们将在上面绘制的矩形内绘制一个圆。</span><br><span class="line">img &#x3D; cv2.circle(img,(447,63), 63, (0,0,255), -1)</span><br><span class="line">cv2.imshow(&#39;img4&#39;,img)</span><br><span class="line"></span><br><span class="line"># 绘制椭圆，我们需要传递几个参数。一个参数是中心位置（x，y）。</span><br><span class="line"># 下一个参数是轴长度（长轴长度，短轴长度）。角度是椭圆在逆时针方向上的旋转角度。</span><br><span class="line">img &#x3D; cv2.ellipse(img,(256,256),(100,50),0,0,180,255,-1)</span><br><span class="line">cv2.imshow(&#39;img5&#39;,img)</span><br><span class="line"></span><br><span class="line"># 绘制多边形，首先需要顶点坐标。</span><br><span class="line"># 将这些点转换为ROWSx1x2形状的数组，其中ROWS是顶点数，它应该是int32类型。</span><br><span class="line"># 在这里，我们绘制一个带有四个黄色顶点的小多边形。</span><br><span class="line">pts &#x3D; np.array([[10,5],[20,30],[70,20],[50,10]], np.int32)</span><br><span class="line">pts &#x3D; pts.reshape((-1,1,2))</span><br><span class="line"># 如果第三个参数为False，将获得连接所有点的折线，而不是闭合形状。</span><br><span class="line">img &#x3D; cv2.polylines(img,[pts],True,(0,255,255))</span><br><span class="line">cv2.imshow(&#39;img6&#39;,img)</span><br><span class="line"></span><br><span class="line"># 向图像添加文字：</span><br><span class="line"># 要将文本放入图像中，您需要指定以下内容。</span><br><span class="line"># 要写入的文本数据</span><br><span class="line"># 想要放置它的位置坐标（即数据开始的左下角）。</span><br><span class="line"># 字体类型（检查支持字体的cv2.putText（）文档）</span><br><span class="line"># 字体缩放（指定字体大小）</span><br><span class="line"># 常见的事情，如颜色，粗细，线型等。为了更好看，建议使用lineType &#x3D; cv2.LINE_AA。</span><br><span class="line"># 我们将以白色在我们的图像上编写OpenCV。</span><br><span class="line">font &#x3D; cv2.FONT_HERSHEY_SIMPLEX</span><br><span class="line">cv2.putText(img,&#39;OpenCV&#39;,(10,500), font, 4,(255,255,255),2,cv2.LINE_AA)</span><br><span class="line">cv2.imshow(&#39;img7&#39;,img)</span><br><span class="line">cv2.waitKey(0)</span><br><span class="line">cv2.destroyWindow()</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Opencv</category>
+      </categories>
+      <tags>
+        <tag>opencv</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2018/12/18/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+</search>
